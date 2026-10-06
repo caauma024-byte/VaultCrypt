@@ -1,0 +1,181 @@
+/* ==============================
+   CONFIGURACIÓN GENERAL
+   ============================== */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #07111f;
+    color: white;
+}
+
+
+/* ==============================
+   PANTALLA PRINCIPAL VAULTCRYPT
+   ============================== */
+
+.vault-home {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.vault-icon {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+.vault-home h1 {
+    font-size: 48px;
+    margin: 10px 0;
+}
+
+.vault-subtitle {
+    color: #38bdf8;
+    font-size: 22px;
+}
+
+.vault-description {
+    color: #94a3b8;
+    max-width: 550px;
+    font-size: 17px;
+}
+
+.vault-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.vault-buttons a {
+    text-decoration: none;
+    padding: 14px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.vault-buttons .btn-primary {
+    width: auto;
+}
+
+.btn-secondary {
+    background: #1e293b;
+    color: #38bdf8;
+    border: 1px solid #38bdf8;
+}
+
+
+/* ==============================
+   LOGIN Y REGISTRO
+   ============================== */
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-card {
+    width: 390px;
+    padding: 40px;
+    background: #101d31;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+    text-align: center;
+}
+
+.auth-card .vault-icon {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.auth-card h1 {
+    margin: 5px 0;
+    font-size: 32px;
+}
+
+.subtitle {
+    color: #8fa4bd;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #cbd5e1;
+}
+
+.input-group input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px;
+    border: 1px solid #293b55;
+    border-radius: 10px;
+    background: #0a1627;
+    color: white;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #38bdf8;
+}
+
+.password-container {
+    display: flex;
+}
+
+.password-container input {
+    border-radius: 10px 0 0 10px;
+}
+
+.password-container button {
+    width: 50px;
+    border: none;
+    background: #1b2c43;
+    color: white;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+}
+
+.auth-card .btn-primary {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.auth-card .btn-primary:hover {
+    background: #0369a1;
+}
+
+.register-text {
+    margin-top: 25px;
+    color: #94a3b8;
+}
+
+.register-text a {
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+.error-message {
+    background: #451a1a;
+    color: #fca5a5;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}

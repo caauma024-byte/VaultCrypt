@@ -1,0 +1,35 @@
+name: Build and Deploy ASP.NET Core - Bóveda Segura
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. Descargar el código fuente
+      uses: actions/checkout@v4
+
+    - name: 2. Configurar el entorno de .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: 3. Restaurar dependencias del proyecto
+      run: dotnet restore
+
+    - name: 4. Compilar la solución en modo Release
+      run: dotnet build --no-restore --configuration Release
+
+    - name: 5. Publicar artefactos para despliegue
+      run: dotnet publish --configuration Release --output ./publish
+
+    - name: 6. Subir artefactos compilados (Para Azure / Render)
+      uses: actions/upload-artifact@v4
+      with:
+        name: webapp
+        path: ./publish

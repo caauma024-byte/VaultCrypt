@@ -1,0 +1,137 @@
+﻿@model IEnumerable<VaultCrypt.Models.Document>
+@{
+    Layout = null;
+    ViewData["Title"] = "Bóveda Segura - Cifrado Híbrido";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <style>
+        body { background-color: #f8f9fa; }
+        .vault-card { max-width: 850px; width: 100%; }
+        .badge-crypto { font-size: 0.75rem; padding: 0.35em 0.6em; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span class="navbar-brand mb-0 h1 fs-4 fw-bold">🔐 Bóveda Segura</span>
+            <a asp-controller="Account" asp-action="Logout" class="btn btn-outline-light btn-sm fw-semibold">
+                🚪 Cerrar Sesión
+            </a>
+        </div>
+    </nav>
+
+    <div class="container d-flex flex-grow-1 align-items-center justify-content-center py-5">
+        <div class="card vault-card shadow-lg border-0 rounded-4">
+            <div class="card-body p-4 p-sm-5">
+
+                <div class="text-center mb-4">
+                    <div class="display-4 mb-2">🛡️</div>
+                    <h2 class="fw-bold text-dark mb-1 fs-3">Bóveda Segura</h2>
+                    <p class="text-muted small mb-2">Almacenamiento de archivos con cifrado híbrido</p>
+
+                    <!-- Los 3 bloques exigidos en tu proyecto -->
+                    <div class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
+                        <span class="badge bg-success badge-crypto">AES-256-GCM</span>
+                        <span class="badge bg-success badge-crypto">RSA-OAEP-2048</span>
+                        <span class="badge bg-success badge-crypto">HMAC-SHA256</span>
+                    </div>
+                </div>
+
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success py-2 small mb-3" role="alert">
+                        ✅ @TempData["Success"]
+                    </div>
+                }
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger py-2 small mb-3" role="alert">
+                        @TempData["Error"]
+                    </div>
+                }
+
+                <!-- Formulario de Subida -->
+                <form asp-controller="Home" asp-action="Upload" method="post" enctype="multipart/form-data">
+
+                    <div class="mb-3 text-start">
+                        <label for="fileInput" class="form-label fw-semibold text-secondary small">Seleccionar Documento:</label>
+                        <input type="file" id="fileInput" name="file" class="form-control form-control-lg fs-6" required />
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4 mb-4">
+                        <button type="submit" class="btn btn-primary btn-lg fw-bold fs-6 py-2 shadow-sm">
+                            📤 Subir, Cifrar y Firmar con HMAC
+                        </button>
+                    </div>
+
+                </form>
+
+                <hr class="my-4" />
+
+                <!-- Lista de Archivos y Verificación de Integridad -->
+                <div class="text-start">
+                    <h5 class="fw-bold mb-3">📁 Tus Archivos Cifrados Almacenados</h5>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle border">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Archivo</th>
+                                        <th>Métodos de Protección</th>
+                                        <th>Fecha de Carga</th>
+                                        <th class="text-center">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var doc in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <span class="fw-semibold text-dark">📄 @doc.FileName</span>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-secondary badge-crypto">🔒 AES + HMAC</span>
+                                            </td>
+                                            <td class="small text-muted">
+                                                @doc.UploadedAt.ToString("g")
+                                            </td>
+                                            <td class="text-center">
+                                                <a asp-controller="Home" asp-action="Download" asp-route-id="@doc.Id" class="btn btn-sm btn-outline-primary fw-semibold">
+                                                    ⬇️ Ver / Descargar
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-3 border rounded bg-light">
+                            <small>No hay archivos almacenados en la bóveda aún.</small>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-top py-3 text-center text-muted">
+        <small>&copy; @DateTime.Now.Year - Universidad Nacional de Cañete - Seguridad y Criptografía</small>
+    </footer>
+
+</body>
+</html>

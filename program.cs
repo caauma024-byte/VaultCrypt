@@ -6,10 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 // 1. Agregar MVC
 builder.Services.AddControllersWithViews();
 
-// 2. Configurar la base de datos SQLite
+// 2. Configurar la base de datos SQL Server (Azure SQL) con reintento automático
 builder.Services.AddDbContext<VaultDbContext>(options =>
-    options.UseSqlite(
-        builder.Configuration.GetConnectionString("DefaultConnection")
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()
     ));
 
 // 3. Configurar Sesiones con Cookies esenciales
@@ -22,11 +23,11 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-// Asegurar creación de la Base de Datos al iniciar
+// Aplicar migraciones automáticamente al iniciar en la nube (reemplaza EnsureCreated)
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<VaultDbContext>();
-    db.Database.EnsureCreated();
+    db.Database.Migrate();
 }
 
 // Configurar Middleware

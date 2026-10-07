@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VaultCrypt")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+024829154a5b34ae320e08114aaf61e1f4e4fbb5")]
 [assembly: System.Reflection.AssemblyProductAttribute("VaultCrypt")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VaultCrypt")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
